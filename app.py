@@ -7,7 +7,7 @@ from src.prompts import explain_topic, summarize_notes, generate_quiz
 # Page config
 st.set_page_config(
     page_title="AI Study Buddy",
-    page_icon="🧠",
+    page_icon="🏳️",
     layout="centered"
 )
 
@@ -30,14 +30,21 @@ with tab1:
         label_visibility="collapsed"
     )
     
-    if st.button("Explain Simply", type="primary", key="explain_btn"):
+    # 🛡️ INPUT VALIDATION: Block vague/philosophical inputs
+    invalid_phrases = ["life is", "use it well", "love", "happiness", "philosophy", "meaning of life"]
+    if topic.strip() and any(phrase in topic.lower() for phrase in invalid_phrases):
+        st.warning("Please enter a concrete academic topic (e.g., 'Newton’s Laws', 'Cell Division').")
+    elif st.button("Explain Simply", type="primary", key="explain_btn"):
         if topic.strip():
-            with st.spinner("🧠 Thinking..."):
-                prompt = explain_topic(topic)
-                response = generate_text(prompt)
-                # Save to session state so it persists
-                st.session_state.explanation = response
-                st.session_state.current_topic = topic
+            if len(topic.split()) < 2:
+                st.warning("Please enter a more specific topic (e.g., 'What is photosynthesis?')")
+            else:
+                with st.spinner("🧠 Thinking..."):
+                    prompt = explain_topic(topic)
+                    response = generate_text(prompt)
+                    # Save to session state so it persists
+                    st.session_state.explanation = response
+                    st.session_state.current_topic = topic
         else:
             st.warning("Please enter a topic.")
 
@@ -90,7 +97,7 @@ with tab3:
     st.markdown("### 📚 Paste content to quiz yourself on")
     content = st.text_area(
         "Study material",
-        height=150,
+        height=170,
         placeholder="e.g., 'Photosynthesis is the process by which green plants convert sunlight into chemical energy...'"
     )
     col1, col2 = st.columns([3, 1])

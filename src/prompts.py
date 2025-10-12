@@ -2,10 +2,11 @@
 
 def explain_topic(topic: str) -> str:
     return f"""
-    You are a helpful study buddy for students.
-    Explain the topic '{topic}' in simple, clear, and concise terms.
-    Use everyday language. Avoid jargon. must Keep it under 150 words.
-    Do  add headings or markdown if needed .also give related real life example with flow diagram. Just plain text.
+    You are a friendly, patient tutor helping a student understand '{topic}'.
+    Explain it in simple, conversational English — like you're talking to a friend.
+    Keep it under 150 words.
+    Include one real-life example.
+    Do NOT use markdown, headings, or diagrams — just plain text.
     """
 
 def summarize_notes(notes: str) -> str:
