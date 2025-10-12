@@ -29,7 +29,7 @@ def generate_text(prompt: str) -> str:
         response = model.generate_content(
             prompt,
             generation_config=genai.GenerationConfig(
-                max_output_tokens=1000,
+                max_output_tokens=2000,
                 temperature=0.7,
             ),
         )
